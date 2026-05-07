@@ -140,3 +140,39 @@ la acción existe.
 
 El agente genera logs en `agent.log` (archivo) y stdout.
 En modo `--debug`, se incluyen los payloads completos enviados al LLM.
+
+## Observabilidad y Telemetría (nuevo)
+
+Se añadió un subsistema de observabilidad productivo:
+
+- `telemetry.py`: bus de eventos, persistencia SQLite y métricas LLM/agent.
+- `observability_api.py`: API FastAPI + WebSocket para dashboard live.
+
+### Métricas LLM registradas
+
+- modelo, endpoint, latencia total
+- prompt eval time / generation time
+- prompt/completion tokens
+- tokens/s
+- % de contexto usado (`ctx_size`)
+- retries
+- GPU/VRAM/temperatura (si NVML está disponible)
+
+### Ejecutar API de observabilidad
+
+```bash
+uvicorn observability_api:app --host 0.0.0.0 --port 8090
+```
+
+Endpoints:
+
+- `GET /healthz`
+- `GET /snapshot`
+- `WS /ws/live`
+
+### Base de datos
+
+Se crea `telemetry.db` con tablas:
+
+- `llm_metrics`
+- `agent_events`

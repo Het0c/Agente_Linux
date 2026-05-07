@@ -13,6 +13,8 @@ import logging
 import requests
 from typing import Optional
 
+from telemetry import TelemetryBus, ResourceSampler, build_llm_metric_from_response
+
 logger = logging.getLogger("agent.model_manager")
 
 
@@ -58,10 +60,13 @@ class ModelManager:
         mm.unload_model()
     """
 
-    def __init__(self, debug: bool = False):
+    def __init__(self, debug: bool = False, telemetry: Optional[TelemetryBus] = None, task_id: str = "unknown"):
         self._active_name: Optional[str] = None
         self._active_config: Optional[dict] = None
         self.debug = debug
+        self.telemetry = telemetry
+        self.task_id = task_id
+        self.sampler = ResourceSampler()
         logger.debug("ModelManager inicializado.")
 
     # ──────────────────────────────────────────
@@ -194,6 +199,21 @@ class ModelManager:
 
         elapsed = time.time() - t0
         data = resp.json()
+
+        if self.telemetry is not None:
+            ctx_size = cfg.get("ctx_size")
+            metric = build_llm_metric_from_response(
+                task_id=self.task_id,
+                phase=self._active_name or "unknown",
+                model_name=cfg["model_id"],
+                endpoint=endpoint,
+                elapsed_s=elapsed,
+                response_json=data,
+                retries=0,
+                ctx_size=ctx_size,
+                sampler=self.sampler,
+            )
+            self.telemetry.emit_llm(metric)
 
         try:
             content = data["choices"][0]["message"]["content"].strip()
