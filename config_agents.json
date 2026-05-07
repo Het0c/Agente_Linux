@@ -1,0 +1,29 @@
+{
+  "logic_agent": {
+    "model": "/home/alaska/models/qwen2.5-3b-instruct-q4_k_m.gguf",
+    "port": 8080,
+    "ctx_size": 2048,
+    "threads": 6,
+    "n_gpu_layers": 15,
+    "batch_size": 256,
+    "mlock": true,
+    "backend": "cuda",
+    "gpu_id": 0
+  },
+  "coder_agent": {
+    "model": "/home/alaska/models/qwen2.5-coder-7b-instruct-q4_k_m.gguf",
+    "port": 8081,
+    "ctx_size": 4096,
+    "threads": 8,
+    "n_gpu_layers": 999,
+    "batch_size": 512,
+    "mlock": false,
+    "backend": "vulkan",
+    "gpu_id": 1
+  },
+  "paths": {
+    "llama_cpp": "/home/alaska/llama.cpp",
+    "logs_dir": "/home/alaska/llama_logs"
+  }
+}
+

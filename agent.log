@@ -1,0 +1,55 @@
+2026-05-05 13:44:24,320 [INFO] agent.main: AgentOrchestrator inicializado. Debug=False
+2026-05-05 14:16:18,499 [INFO] agent.main: AgentOrchestrator inicializado. Debug=False
+2026-05-05 14:16:30,362 [INFO] agent.main: === Nueva tarea recibida ===
+2026-05-05 14:16:30,363 [INFO] agent.main: Input: genera un archivo txt que contenga un cuento
+2026-05-05 14:16:30,363 [INFO] agent.core: Interpretando input: genera un archivo txt que contenga un cuento
+2026-05-05 14:16:30,378 [INFO] agent.model_manager: ▶ Modelo cargado: 'agent' → http://localhost:8080
+2026-05-05 14:16:39,393 [INFO] agent.model_manager: ◀ Modelo descargado: 'agent'
+2026-05-05 14:16:39,394 [INFO] agent.main: Tarea simple detectada. Ejecución directa.
+2026-05-05 14:16:39,394 [INFO] agent.executor: Ejecutando paso: Generar un archivo .txt que contenga un cuento
+2026-05-05 14:16:39,396 [INFO] agent.model_manager: ▶ Modelo cargado: 'code' → http://localhost:8081
+2026-05-05 14:18:25,909 [INFO] agent.model_manager: ◀ Modelo descargado: 'code'
+2026-05-05 14:18:25,909 [WARNING] agent.utils: No se pudo parsear JSON [executor]. Texto: {
+  "accion": "crear_archivo",
+  "parametros": {
+    "ruta": "cuento.txt",
+    "contenido": "Una vez hubo una vez una vez una vez una vez una vez una vez una vez una vez una vez una vez una vez una ve
+2026-05-05 14:18:25,909 [WARNING] agent.executor: Respuesta del modelo code no es JSON válido: {
+  "accion": "crear_archivo",
+  "parametros": {
+    "ruta": "cuento.txt",
+    "contenido": "Una vez hubo una vez una vez una vez una vez una vez una vez una vez una vez una vez una vez una vez una ve
+2026-05-05 14:18:25,910 [WARNING] agent.main: Tarea simple falló. Resultado: ERROR: El modelo no generó una acción válida.
+2026-05-05 14:24:28,057 [INFO] agent.main: === Nueva tarea recibida ===
+2026-05-05 14:24:28,057 [INFO] agent.main: Input: clear
+2026-05-05 14:24:28,057 [INFO] agent.core: Interpretando input: clear
+2026-05-05 14:24:28,059 [INFO] agent.model_manager: ▶ Modelo cargado: 'agent' → http://localhost:8080
+2026-05-05 14:24:31,017 [INFO] agent.model_manager: ◀ Modelo descargado: 'agent'
+2026-05-05 14:24:32,379 [INFO] agent.main: === Nueva tarea recibida ===
+2026-05-05 14:24:32,379 [INFO] agent.main: Input: clear
+2026-05-05 14:24:32,379 [INFO] agent.core: Interpretando input: clear
+2026-05-05 14:24:32,381 [INFO] agent.model_manager: ▶ Modelo cargado: 'agent' → http://localhost:8080
+2026-05-05 14:24:33,969 [INFO] agent.model_manager: ◀ Modelo descargado: 'agent'
+2026-05-05 14:24:55,211 [INFO] agent.main: AgentOrchestrator inicializado. Debug=False
+2026-05-05 14:25:58,299 [INFO] agent.main: === Nueva tarea recibida ===
+2026-05-05 14:25:58,299 [INFO] agent.main: Input: crea un proyecto python que permita leer el hash256 y guardarlo en un txt
+2026-05-05 14:25:58,299 [INFO] agent.core: Interpretando input: crea un proyecto python que permita leer el hash256 y guardarlo en un txt
+2026-05-05 14:25:58,306 [INFO] agent.model_manager: ▶ Modelo cargado: 'agent' → http://localhost:8080
+2026-05-05 14:26:07,463 [INFO] agent.model_manager: ◀ Modelo descargado: 'agent'
+2026-05-05 14:26:07,463 [INFO] agent.main: Tarea simple detectada. Ejecución directa.
+2026-05-05 14:26:07,463 [INFO] agent.executor: Ejecutando paso: Crear un proyecto Python que lea un hash256 y lo guarde en un archivo txt
+2026-05-05 14:26:07,465 [INFO] agent.model_manager: ▶ Modelo cargado: 'code' → http://localhost:8081
+2026-05-05 14:26:13,813 [INFO] agent.model_manager: ◀ Modelo descargado: 'code'
+2026-05-05 14:26:13,853 [INFO] agent.executor: Acción generada: 'crear_archivo' | Razón: Se necesita un archivo para guardar el hash256 leído.
+2026-05-05 14:26:13,853 [INFO] agent.executor: Acción 'crear_archivo' ejecutada OK. Resultado: Archivo creado: /home/alaska/Downloads/llm_agent/agent_workspace/hash256.txt (0 chars)
+2026-05-05 14:27:17,030 [INFO] agent.main: === Nueva tarea recibida ===
+2026-05-05 14:27:17,032 [INFO] agent.main: Input: genera el archivo python que permita leer el archivo seleccionado y este lo guarde en el txt
+2026-05-05 14:27:17,033 [INFO] agent.core: Interpretando input: genera el archivo python que permita leer el archivo seleccionado y este lo guarde en el txt
+2026-05-05 14:27:17,048 [INFO] agent.model_manager: ▶ Modelo cargado: 'agent' → http://localhost:8080
+2026-05-05 14:27:24,804 [INFO] agent.model_manager: ◀ Modelo descargado: 'agent'
+2026-05-05 14:27:24,806 [INFO] agent.main: Tarea simple detectada. Ejecución directa.
+2026-05-05 14:27:24,807 [INFO] agent.executor: Ejecutando paso: Generar un archivo Python que lea un archivo seleccionado y lo guarde en un archivo .txt
+2026-05-05 14:27:24,809 [INFO] agent.model_manager: ▶ Modelo cargado: 'code' → http://localhost:8081
+2026-05-05 14:27:50,917 [INFO] agent.model_manager: ◀ Modelo descargado: 'code'
+2026-05-05 14:27:50,917 [INFO] agent.executor: Acción generada: 'crear_archivo' | Razón: Esta acción crea un script Python que solicita al usuario seleccionar un archivo
+2026-05-05 14:27:50,919 [INFO] agent.executor: Acción 'crear_archivo' ejecutada OK. Resultado: Archivo creado: /home/alaska/Downloads/llm_agent/agent_workspace/script_leer_archivo.py (681 chars)
