@@ -1,14 +1,6 @@
-# requirements.txt — Dependencias mínimas del agente LLM
-# Compatibles con Python 3.10+
-
-# Cliente HTTP para comunicación con el servidor LLM local
+# requirements.txt — Dependencias del agente + observabilidad
 requests>=2.31.0
-
-# (Opcional) Para servidores con SDK oficial compatible con OpenAI
-# openai>=1.0.0   # Descomenta si usas LM Studio o un servidor compatible con openai-python
-
-# (Opcional) Para formateo de terminal con colores
-# rich>=13.0.0    # Descomenta para logs con colores y tablas
-
-# No hay dependencias de frameworks ML como transformers/torch:
-# el agente se comunica con modelos via HTTP, no los carga en memoria directa.
+fastapi>=0.115.0
+uvicorn>=0.30.0
+psutil>=5.9.8
+pynvml>=11.5.0

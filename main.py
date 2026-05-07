@@ -19,6 +19,7 @@ import argparse
 from typing import Optional
 
 from model_manager import ModelManager
+from telemetry import TelemetryBus, AgentEvent
 from memory import AgentMemory
 from agent import Agent
 from executor import Executor
@@ -87,7 +88,9 @@ class AgentOrchestrator:
 
         # Inicializar componentes
         self.memory = AgentMemory(persist_path=persist_path)
-        self.model_manager = ModelManager(debug=debug)
+        self.telemetry = TelemetryBus()
+        self.task_id = "task-main"
+        self.model_manager = ModelManager(debug=debug, telemetry=self.telemetry, task_id=self.task_id)
         self.agent = Agent(self.model_manager, self.memory, debug=debug)
         self.executor = Executor(self.model_manager, debug=debug)
 
@@ -111,6 +114,7 @@ class AgentOrchestrator:
         """
         print_banner(f"AGENTE LLM  |  Tarea: {user_input[:50]}...")
         logger.info("=== Nueva tarea recibida ===")
+        self.telemetry.emit_event(AgentEvent(task_id=self.task_id, event_type="task_received", severity="info", payload={"input": user_input[:200]}))
         logger.info("Input: %s", user_input)
 
         # Resetear estado
@@ -122,6 +126,7 @@ class AgentOrchestrator:
         try:
             resultado = self._run_interno(user_input)
             self.memory.set_estado_global("completed")
+            self.telemetry.emit_event(AgentEvent(task_id=self.task_id, event_type="task_completed", severity="info", payload={"result": resultado[:300]}))
             return resultado
         except KeyboardInterrupt:
             print("\n\n  ⚠️  Ejecución interrumpida por el usuario.")
@@ -132,6 +137,7 @@ class AgentOrchestrator:
             logger.exception("Error fatal en el agente.")
             self.memory.set_estado_global("failed")
             self.memory.agregar_evento("error_fatal", str(e))
+            self.telemetry.emit_event(AgentEvent(task_id=self.task_id, event_type="task_failed", severity="error", payload={"error": str(e)}))
             return f"Error fatal: {e}"
 
     def _run_interno(self, user_input: str) -> str:
@@ -167,8 +173,10 @@ class AgentOrchestrator:
         if not exitoso:
             logger.warning("Tarea simple falló. Resultado: %s", resultado)
             self.memory.agregar_evento("simple_fallo", resultado[:200])
+            self.telemetry.emit_event(AgentEvent(task_id=self.task_id, event_type="simple_failed", severity="warning", payload={"result": resultado[:200]}))
         else:
             self.memory.agregar_evento("simple_ok", resultado[:200])
+            self.telemetry.emit_event(AgentEvent(task_id=self.task_id, event_type="simple_ok", severity="info", payload={"result": resultado[:200]}))
 
         return resultado
 

@@ -19,6 +19,7 @@ logger = logging.getLogger("agent.memory")
 # ──────────────────────────────────────────────
 
 DEFAULT_STATE = {
+    "task_id": "",
     "objetivo": "",          # Tarea original del usuario
     "plan": [],              # Lista de pasos generados por el planificador
     "paso_actual": 0,        # Índice del paso en ejecución
@@ -64,6 +65,10 @@ class AgentMemory:
     # ──────────────────────────────────────────
     #  Getters / Setters atómicos
     # ──────────────────────────────────────────
+
+    def set_task_id(self, task_id: str) -> None:
+        self._state["task_id"] = task_id
+        self._save()
 
     def set_objetivo(self, objetivo: str) -> None:
         self._state["objetivo"] = objetivo
