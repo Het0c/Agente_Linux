@@ -80,4 +80,5 @@ echo ""
 echo ">>> LIVE DEBUG STREAM (Ctrl+C to exit)"
 echo ""
 
-tail -f "$LOG_DIR"/logic_agent.log "$LOG_DIR"/coder_agent.log
+konsole -e bash -c "tail -f '$LOG_DIR'/coder_agent.log; exec bash"
+tail -f "$LOG_DIR"/logic_agent.log
