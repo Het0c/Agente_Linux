@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger("agent.executor")
 
-
+"""
 class Executor:
     """
     Coordina la generación de acciones (vía LLM) y su despacho (vía CapabilityManager).
